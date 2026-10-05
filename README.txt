@@ -1,16 +1,26 @@
-SEMANA 21 — SITE INTERATIVO
+SITE INTERATIVO — LÓGICA DE PROGRAMAÇÃO — SEMANA 21
 
-Arquivos:
-- index.html: página principal
-- style.css: visual e responsividade
-- script.js: quizzes, progresso, atividade, localStorage, simulador e PDF
-- materials/: slides das Aulas 1 a 4 e atividade original em DOCX
+Arquivos principais:
+- index.html
+- style.css
+- script.js
 
-COMO USAR
-1. Extraia a pasta completa.
-2. Abra index.html no navegador.
-3. Para a geração do PDF via jsPDF, é necessário acesso à internet para carregar a biblioteca CDN.
-4. Se a biblioteca não carregar, o site orienta o uso de Ctrl+P > Salvar como PDF como alternativa.
+Materiais originais:
+- materials/aula1.pptx
+- materials/aula2.pptx
+- materials/aula3.pptx
+- materials/aula4.pptx
+- materials/atividade.docx
 
-OBSERVAÇÃO
-As respostas ficam no localStorage do próprio navegador e não são enviadas a servidor.
+Recursos:
+- teoria ampliada com analogias simples
+- modo claro/escuro
+- quizzes com correção e explicação
+- simulador de menu
+- atividade prática preenchível
+- localStorage para salvar progresso
+- validação de entrega
+- geração de PDF via jsPDF quando houver internet
+- fallback: Imprimir / Salvar como PDF
+
+Para usar, extraia o ZIP e abra index.html no navegador.

@@ -1,237 +1,231 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Semana 21 — Programando com Menu no Terminal. Trilha interativa do Técnico em Desenvolvimento de Sistemas." />
-  <title>Semana 21 | Programando com Menu no Terminal</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Semana 21 de Lógica de Programação — trilha interativa sobre menus, repetição, funções, validação e consulta de produtos.">
+  <title>Lógica de Programação | Semana 21</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#inicio" aria-label="Ir ao início">
-      <span class="brand-mark">21</span>
-      <span><strong>Semana 21</strong><small>Técnico em Desenvolvimento de Sistemas</small></span>
-    </a>
-    <button id="menuBtn" class="menu-btn" aria-label="Abrir menu" aria-expanded="false">☰</button>
-    <nav id="nav" class="nav" aria-label="Navegação principal">
+    <a class="brand" href="#inicio"><span class="brand-badge">21</span><span><strong>Lógica de Programação</strong><small>Programando com menu no terminal</small></span></a>
+    <div class="top-actions">
+      <button id="themeToggle" class="icon-btn" type="button" aria-label="Alternar modo escuro">🌙 <span>Modo escuro</span></button>
+      <button id="menuToggle" class="icon-btn mobile" type="button" aria-label="Abrir menu">☰</button>
+    </div>
+    <nav id="mainNav" class="nav">
       <a href="#aula1">Aula 1</a><a href="#aula2">Aula 2</a><a href="#aula3">Aula 3</a><a href="#aula4">Aula 4</a>
-      <a href="#laboratorio">Laboratório</a><a href="#atividade">Atividade</a><a href="#quiz-geral">Quiz final</a><a href="#entrega">Entrega</a>
+      <a href="#laboratorio">Laboratório</a><a href="#atividade">Atividade</a><a href="#quiz-final">Quiz final</a><a href="#entrega">Entrega</a>
     </nav>
   </header>
 
   <main>
     <section id="inicio" class="hero section">
       <div class="hero-copy">
-        <span class="eyebrow">Estruturas de repetição</span>
-        <h1>Programando com <span>menu no terminal</span></h1>
-        <p>Uma trilha interativa para compreender como um programa evolui de um menu simples para um sistema capaz de organizar funções, validar entradas, cadastrar e consultar produtos.</p>
-        <div class="hero-actions"><a class="btn primary" href="#identificacao">Iniciar Semana 21</a><a class="btn ghost" href="#resumo">Ver resumo</a></div>
+        <span class="kicker">Semana 21 · Estruturas de repetição</span>
+        <h1>Do menu simples ao <span>sistema integrado</span></h1>
+        <p>Aprenda como um programa recebe escolhas, toma decisões, repete operações, organiza tarefas em funções, valida dados e consulta produtos — com explicações técnicas, analogias simples, simuladores e desafios.</p>
+        <div class="actions"><a class="btn primary" href="#identificacao">Começar agora</a><a class="btn secondary" href="#mapa">Ver mapa da aula</a></div>
       </div>
-      <div class="terminal-card" aria-label="Exemplo visual de terminal">
-        <div class="terminal-head"><i></i><i></i><i></i><span>papelaria.py</span></div>
-        <pre><code><span class="dim"># evolução da semana</span>
-menu_simples()
-repetir_menu()
-organizar_em_funcoes()
-validar_entrada()
-cadastrar_produto()
-consultar_produto()
-<span class="ok">sistema_integrado()</span></code></pre>
+      <div class="terminal hero-terminal">
+        <div class="terminal-bar"><i></i><i></i><i></i><span>papelaria.py</span></div>
+<pre><code><span class="muted"># evolução da Semana 21</span>
+mostrar_menu()
+receber_escolha()
+tomar_decisao()
+repetir_operacoes()
+organizar_funcoes()
+validar_dados()
+<span class="success">consultar_produtos()</span></code></pre>
       </div>
     </section>
 
-    <section class="journey section compact" aria-labelledby="journeyTitle">
-      <div class="section-title"><span>Trilha</span><h2 id="journeyTitle">Sua evolução na Semana 21</h2></div>
-      <div class="journey-line" aria-label="Etapas da trilha">
-        <span>Menu simples</span><b>→</b><span>Repetição</span><b>→</b><span>Decisão</span><b>→</b><span>Funções</span><b>→</b><span>Cadastro</span><b>→</b><span>Validação</span><b>→</b><span>Consulta</span><b>→</b><span>Sistema integrado</span>
+    <section id="mapa" class="section compact">
+      <div class="section-head"><span>Visão geral</span><h2>Mapa de aprendizagem</h2><p>O conteúdo evolui em camadas. Cada aula adiciona uma peça ao mesmo sistema.</p></div>
+      <div class="roadmap">
+        <article><b>1</b><h3>Fluxo do programa</h3><p>Entrada, processamento, decisão, repetição e saída.</p></article>
+        <article><b>2</b><h3>Funções e validação</h3><p>Separar responsabilidades e impedir entradas inválidas.</p></article>
+        <article><b>3</b><h3>Menu contínuo</h3><p>Manter o programa em execução até o usuário decidir sair.</p></article>
+        <article><b>4</b><h3>Sistema completo</h3><p>Cadastrar, validar e consultar produtos no mesmo menu.</p></article>
       </div>
     </section>
 
     <section id="identificacao" class="section">
-      <div class="section-title"><span>Antes de começar</span><h2>Identificação do aluno</h2><p>Estas informações serão usadas no relatório final em PDF.</p></div>
+      <div class="section-head"><span>Antes de estudar</span><h2>Identificação do aluno</h2><p>Esses dados serão usados no relatório e no PDF de entrega.</p></div>
       <div class="panel form-grid">
-        <label>Nome completo<input id="studentName" type="text" autocomplete="name" placeholder="Digite seu nome" /></label>
-        <label>Turma<input id="studentClass" type="text" placeholder="Ex.: 2º DS" /></label>
-        <label>Número da chamada <small>(opcional)</small><input id="studentNumber" type="text" inputmode="numeric" placeholder="Ex.: 12" /></label>
-        <label>Data<input id="studentDate" type="date" /></label>
-        <div class="save-line"><span id="saveStatus" class="saved">✓ Progresso salvo</span><button id="clearProgress" class="btn danger small" type="button">Limpar meu progresso</button></div>
+        <label>Nome completo<input id="studentName" type="text" placeholder="Digite seu nome"></label>
+        <label>Turma<input id="studentClass" type="text" placeholder="Ex.: 1º DS"></label>
+        <label>Número da chamada <small>(opcional)</small><input id="studentNumber" type="text" placeholder="Ex.: 12"></label>
+        <label>Data<input id="studentDate" type="date"></label>
+        <div class="form-footer"><span id="saveStatus" class="save-status">✓ Progresso salvo</span><button id="clearProgress" class="btn danger" type="button">Limpar progresso</button></div>
       </div>
     </section>
 
-    <section class="section progress-section">
-      <div class="section-title"><span>Progresso</span><h2>Acompanhe sua trilha</h2></div>
+    <section class="section compact">
       <div class="progress-card">
-        <div class="progress-top"><strong id="progressLabel">Progresso da Semana: 0%</strong><span id="progressCount">0 de 7 etapas</span></div>
-        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
-        <div id="stepChips" class="step-chips"></div>
+        <div class="progress-row"><strong id="progressLabel">Progresso: 0%</strong><span id="progressCount">0 de 7 etapas</span></div>
+        <div class="progress-track"><div id="progressBar"></div></div>
+        <div id="progressChips" class="chips"></div>
       </div>
     </section>
 
-    <section id="aula1" class="section lesson" data-lesson="1">
-      <div class="lesson-header"><span class="lesson-number">01</span><div><span class="eyebrow">SISANO1C1B4S21A1</span><h2>Como um programa com menu se organiza</h2><p>Entrada, processamento, decisão, repetição e saída formam o fluxo de execução.</p></div></div>
-      <div class="concept-flow">
-        <button data-concept="entrada"><b>Entrada</b><small>recebe a escolha</small></button><i>→</i>
-        <button data-concept="processamento"><b>Processamento</b><small>trabalha os dados</small></button><i>→</i>
-        <button data-concept="decisao"><b>Decisão</b><small>escolhe o caminho</small></button><i>→</i>
-        <button data-concept="repeticao"><b>Repetição</b><small>mantém o fluxo</small></button><i>→</i>
-        <button data-concept="saida"><b>Saída</b><small>mostra o resultado</small></button>
+    <section id="aula1" class="section lesson">
+      <div class="lesson-title"><span class="number">01</span><div><span class="kicker">Aula 1 · SISANO1C1B4S21A1</span><h2>Como um programa com menu se organiza</h2><p>Antes de pensar em código, precisamos entender o fluxo lógico de uma interação.</p></div></div>
+
+      <div class="theory-grid">
+        <article class="theory-card"><h3>Entrada</h3><p><strong>Técnico:</strong> é o dado recebido pelo programa, normalmente por meio de <code>input()</code>.</p><div class="analogy"><b>💡 Pense assim</b><p>É como fazer um pedido em um caixa eletrônico: você informa qual operação deseja realizar.</p></div></article>
+        <article class="theory-card"><h3>Processamento</h3><p><strong>Técnico:</strong> é o momento em que o programa trabalha com os dados recebidos.</p><div class="analogy"><b>💡 Pense assim</b><p>É a “cozinha” do programa: o pedido entrou e agora precisa ser preparado.</p></div></article>
+        <article class="theory-card"><h3>Decisão</h3><p><strong>Técnico:</strong> estruturas como <code>if</code>, <code>elif</code> e <code>else</code> definem qual caminho será executado.</p><div class="analogy"><b>💡 Pense assim</b><p>Um semáforo decide: verde continua, vermelho para. O programa também escolhe um caminho conforme uma condição.</p></div></article>
+        <article class="theory-card"><h3>Repetição</h3><p><strong>Técnico:</strong> uma estrutura como <code>while</code> repete um bloco enquanto uma condição for verdadeira.</p><div class="analogy"><b>💡 Pense assim</b><p>É como um caixa eletrônico voltar para a tela inicial depois de cada operação até você escolher “Sair”.</p></div></article>
+        <article class="theory-card"><h3>Saída</h3><p><strong>Técnico:</strong> é a informação apresentada ao usuário, por exemplo com <code>print()</code>.</p><div class="analogy"><b>💡 Pense assim</b><p>É o recibo no fim de uma operação: o sistema informa o resultado do que foi solicitado.</p></div></article>
       </div>
-      <div id="conceptDetail" class="concept-detail" aria-live="polite">Clique em uma etapa para ver uma explicação.</div>
-      <div class="lesson-grid">
-        <article class="card"><h3>O que observar</h3><p>O programa recebe a opção do usuário, compara essa opção com as alternativas e apresenta uma resposta. Para um menu continuar funcionando, o fluxo precisa ser executado novamente.</p></article>
-        <article class="card code-card"><h3>Exemplo simples</h3><pre><code>opcao = input("Escolha: ")
+
+      <div class="flow-demo">
+        <h3>Fluxo de um menu</h3>
+        <div class="flow-line"><button class="flow-step" data-flow="entrada" type="button">Entrada</button><span>→</span><button class="flow-step" data-flow="processamento" type="button">Processamento</button><span>→</span><button class="flow-step" data-flow="decisao" type="button">Decisão</button><span>→</span><button class="flow-step" data-flow="saida" type="button">Saída</button><span>↺</span><button class="flow-step" data-flow="repeticao" type="button">Repetição</button></div>
+        <div id="flowDetail" class="inline-feedback info">Clique em uma etapa para revisar o que acontece nela.</div>
+      </div>
+
+      <div class="code-explain">
+        <div><h3>Exemplo</h3><pre><code>opcao = input("Escolha uma opção: ")
 
 if opcao == "1":
     print("Bem-vindo!")
 elif opcao == "0":
-    print("Encerrando...")</code></pre></article>
+    print("Encerrando...")
+else:
+    print("Opção inválida.")</code></pre></div>
+        <div><h3>Lendo o código</h3><p><code>input()</code> recebe a escolha. O <code>if</code> compara a opção com um caminho possível. O <code>elif</code> testa outra possibilidade. O <code>else</code> trata qualquer opção não prevista.</p><div class="real-life"><b>🌎 Na vida real</b><p>Menus aparecem em caixas eletrônicos, sistemas de atendimento, terminais de venda e jogos.</p></div></div>
       </div>
-      <div class="material-card"><div><strong>📑 Material original — Aula 1</strong><p>Abra os slides, acompanhe o conteúdo e depois volte ao site para realizar o quiz.</p></div><a class="btn secondary" href="materials/aula1.pptx" target="_blank" rel="noopener">Abrir slides</a><button class="btn ghost studied" data-study="1">Já estudei os slides</button></div>
-      <div class="quiz-box" data-quiz="lesson1"><h3>Quiz da Aula 1</h3><div class="quiz-content"></div><div class="quiz-footer"><span class="score"></span><button class="btn ghost retry" type="button">Tentar novamente</button></div></div>
+
+      <div class="material"><div><h3>📑 Slides da Aula 1</h3><p>Abra o material original, estude e depois volte ao site para responder ao quiz.</p></div><a class="btn secondary" href="materials/aula1.pptx" target="_blank">Abrir slides</a></div>
+      <div class="quiz" data-quiz="lesson1"><div class="quiz-head"><h3>Quiz da Aula 1</h3><span class="quiz-score"></span></div><div class="quiz-body"></div><div class="quiz-actions"><button class="btn primary correct-quiz" type="button">Corrigir quiz</button><button class="btn secondary retry-quiz" type="button">Refazer quiz</button></div></div>
     </section>
 
-    <section id="aula2" class="section lesson" data-lesson="2">
-      <div class="lesson-header"><span class="lesson-number">02</span><div><span class="eyebrow">SISANO1C1B4S21A2</span><h2>Por que usar funções e validar entradas</h2><p>Funções organizam responsabilidades. Validação impede que o programa execute opções inesperadas.</p></div></div>
-      <div class="lesson-grid three">
-        <article class="card"><h3>Função</h3><p>Uma função reúne instruções que executam uma mesma tarefa. Em vez de concentrar tudo em um único bloco, cada parte recebe uma responsabilidade.</p></article>
-        <article class="card"><h3>Responsabilidade</h3><p><code>mostrar_menu()</code> deve exibir o menu. Outra função pode cadastrar, consultar ou mostrar uma mensagem. Isso facilita leitura e manutenção.</p></article>
-        <article class="card"><h3>Validação</h3><p>Antes de chamar uma função, o programa verifica se a entrada é válida. Uma opção inexistente deve produzir uma orientação ao usuário.</p></article>
-      </div>
-      <div class="compare">
-        <div><h3>Sem organização</h3><pre><code>print("1 - Mensagem")
-opcao = input("Escolha: ")
-if opcao == "1":
-    print("Olá!")</code></pre></div>
-        <div><h3>Organizado em funções</h3><pre><code>def mostrar_menu():
-    print("1 - Mensagem")
+    <section id="aula2" class="section lesson">
+      <div class="lesson-title"><span class="number">02</span><div><span class="kicker">Aula 2 · SISANO1C1B4S21A2</span><h2>Por que usar funções e validar entradas</h2><p>Organizar o programa significa dividir responsabilidades e proteger o fluxo contra dados inesperados.</p></div></div>
 
-def mostrar_mensagem():
-    print("Olá!")</code></pre></div>
+      <div class="theory-grid three">
+        <article class="theory-card"><h3>Função</h3><p><strong>Técnico:</strong> bloco reutilizável de instruções criado com <code>def</code>.</p><div class="analogy"><b>💡 Pense assim</b><p>Uma função é como um setor de uma empresa: cada setor tem uma responsabilidade específica.</p></div></article>
+        <article class="theory-card"><h3>Chamada de função</h3><p><strong>Técnico:</strong> depois de definir a função, é preciso chamá-la para executar sua tarefa.</p><div class="analogy"><b>💡 Pense assim</b><p>Ter uma cozinha montada não prepara o prato sozinha. Alguém precisa fazer o pedido.</p></div></article>
+        <article class="theory-card"><h3>Validação</h3><p><strong>Técnico:</strong> verifica se uma entrada atende às regras antes de continuar.</p><div class="analogy"><b>💡 Pense assim</b><p>É como uma catraca: só deixa passar quando a condição exigida é atendida.</p></div></article>
       </div>
-      <div class="callout"><strong>Analogia:</strong> pense nas funções como setores de uma empresa. Cada setor executa uma tarefa específica, mas todos colaboram para o funcionamento do sistema.</div>
-      <div class="material-card"><div><strong>📑 Material original — Aula 2</strong><p>Estude os slides sobre funções, responsabilidades e validação, depois realize o quiz.</p></div><a class="btn secondary" href="materials/aula2.pptx" target="_blank" rel="noopener">Abrir slides</a><button class="btn ghost studied" data-study="2">Já estudei os slides</button></div>
-      <div class="quiz-box" data-quiz="lesson2"><h3>Quiz da Aula 2</h3><div class="quiz-content"></div><div class="quiz-footer"><span class="score"></span><button class="btn ghost retry" type="button">Tentar novamente</button></div></div>
+
+      <div class="compare-box">
+        <div><h3>Sem função</h3><pre><code>print("1 - Cadastrar")
+print("2 - Consultar")
+print("0 - Sair")</code></pre><p>Se esse menu precisar aparecer várias vezes, repetir o código aumenta a chance de erro.</p></div>
+        <div><h3>Com função</h3><pre><code>def mostrar_menu():
+    print("1 - Cadastrar")
+    print("2 - Consultar")
+    print("0 - Sair")</code></pre><p>Agora a responsabilidade está centralizada: basta chamar <code>mostrar_menu()</code>.</p></div>
+      </div>
+
+      <div class="stop-think"><b>🤔 Pare e pense</b><p>Se o usuário digitar “9” em um menu que só possui 1, 2 e 0, o programa deve simplesmente continuar como se nada tivesse acontecido?</p><button class="reveal-btn" type="button" data-reveal="revealValidation">Ver explicação</button><div id="revealValidation" class="reveal" hidden>Não. Uma boa validação informa que a opção é inválida e permite que o usuário tente novamente, preservando o fluxo do sistema.</div></div>
+
+      <div class="material"><div><h3>📑 Slides da Aula 2</h3><p>Revise funções, responsabilidades e validação de entradas no material original.</p></div><a class="btn secondary" href="materials/aula2.pptx" target="_blank">Abrir slides</a></div>
+      <div class="quiz" data-quiz="lesson2"><div class="quiz-head"><h3>Quiz da Aula 2</h3><span class="quiz-score"></span></div><div class="quiz-body"></div><div class="quiz-actions"><button class="btn primary correct-quiz" type="button">Corrigir quiz</button><button class="btn secondary retry-quiz" type="button">Refazer quiz</button></div></div>
     </section>
 
-    <section id="aula3" class="section lesson" data-lesson="3">
-      <div class="lesson-header"><span class="lesson-number">03</span><div><span class="eyebrow">SISANO1C1B4S21A3</span><h2>Construindo o menu do projeto</h2><p>Agora o menu permanece em execução enquanto o usuário desejar.</p></div></div>
-      <div class="flow-vertical" aria-label="Fluxo do menu"><span>Mostrar menu</span><b>↓</b><span>Receber opção</span><b>↓</b><span>Analisar opção</span><b>↓</b><span>Executar função</span><b>↓</b><span>Retornar ao menu</span></div>
-      <div class="lesson-grid">
-        <article class="card"><h3>O papel do loop</h3><p>A estrutura de repetição envolve o menu e garante que ele seja exibido novamente até que a opção de saída seja escolhida.</p></article>
-        <article class="card code-card"><h3>Estrutura-base</h3><pre><code>continuar = True
+    <section id="aula3" class="section lesson">
+      <div class="lesson-title"><span class="number">03</span><div><span class="kicker">Aula 3 · SISANO1C1B4S21A3</span><h2>Construindo o menu do projeto</h2><p>O programa deixa de executar uma única ação e passa a permanecer ativo enquanto o usuário quiser.</p></div></div>
+
+      <div class="deep-theory">
+        <article><h3>Por que usar <code>while</code>?</h3><p>O menu deve reaparecer depois de cada operação. O <code>while</code> cria esse ciclo: enquanto a variável de controle permitir, o programa continua exibindo o menu e processando escolhas.</p><div class="analogy"><b>💡 Pense assim</b><p>Imagine uma loja. Depois de atender um cliente, ela não fecha automaticamente. Continua funcionando até chegar o horário de encerramento.</p></div></article>
+        <article><h3>Variável de controle</h3><p>Uma variável booleana como <code>continuar = True</code> pode controlar a permanência do programa no laço. Quando o usuário escolhe sair, ela muda para <code>False</code>.</p><div class="analogy"><b>💡 Pense assim</b><p>É como uma placa “ABERTO/FECHADO”. Enquanto estiver “ABERTO”, o atendimento continua.</p></div></article>
+      </div>
+
+      <div class="loop-visual"><span>Mostrar menu</span><b>↓</b><span>Ler opção</span><b>↓</b><span>Tomar decisão</span><b>↓</b><span>Executar função</span><b>↓</b><span>Voltar ao menu</span><b>↺</b></div>
+
+      <div class="code-explain">
+        <div><h3>Estrutura-base</h3><pre><code>continuar = True
+
 while continuar:
     mostrar_menu()
     opcao = input("Escolha: ")
 
-    if opcao == "0":
-        continuar = False</code></pre></article>
-      </div>
-      <div class="material-card"><div><strong>📑 Material original — Aula 3</strong><p>Abra os slides e observe como repetição, decisão e funções passam a trabalhar juntas.</p></div><a class="btn secondary" href="materials/aula3.pptx" target="_blank" rel="noopener">Abrir slides</a><button class="btn ghost studied" data-study="3">Já estudei os slides</button></div>
-      <div class="quiz-box" data-quiz="lesson3"><h3>Quiz da Aula 3</h3><div class="quiz-content"></div><div class="quiz-footer"><span class="score"></span><button class="btn ghost retry" type="button">Tentar novamente</button></div></div>
-    </section>
-
-    <section id="aula4" class="section lesson" data-lesson="4">
-      <div class="lesson-header"><span class="lesson-number">04</span><div><span class="eyebrow">SISANO1C1B4S21A4</span><h2>Ampliando o sistema com validação e consulta</h2><p>A Papelaria Ponto Certo ganha validação de preço e consulta de produtos, mantendo tudo integrado ao menu.</p></div></div>
-      <div class="feature-grid"><article><b>Cadastro</b><span>inclui produtos</span></article><article><b>Validação</b><span>aceita preço &gt; 0</span></article><article><b>Consulta</b><span>busca pelo nome</span></article><article><b>Encerramento</b><span>saída controlada</span></article></div>
-      <div class="material-card"><div><strong>📑 Material original — Aula 4</strong><p>Retome o programa da aula anterior e acompanhe a ampliação do sistema.</p></div><a class="btn secondary" href="materials/aula4.pptx" target="_blank" rel="noopener">Abrir slides</a><button class="btn ghost studied" data-study="4">Já estudei os slides</button></div>
-      <div class="quiz-box" data-quiz="lesson4"><h3>Quiz da Aula 4</h3><div class="quiz-content"></div><div class="quiz-footer"><span class="score"></span><button class="btn ghost retry" type="button">Tentar novamente</button></div></div>
-    </section>
-
-    <section id="laboratorio" class="section dark-section">
-      <div class="section-title light"><span>Prática guiada</span><h2>💻 Laboratório de Código</h2><p>Explore as peças principais do programa sem precisar visualizar tudo de uma vez.</p></div>
-      <div id="labTabs" class="tabs" role="tablist"></div>
-      <div id="labContent" class="lab-content"></div>
-      <div class="simulator">
-        <div><span class="eyebrow">Simulador visual</span><h3>Papelaria Ponto Certo</h3><p>Clique nas opções para acompanhar o comportamento de um menu. Esta simulação é feita em JavaScript apenas para demonstrar o fluxo.</p></div>
-        <div class="terminal-card simulator-terminal"><div class="terminal-head"><i></i><i></i><i></i><span>terminal</span></div><div id="terminalOutput" class="terminal-output"></div><div class="terminal-actions"><button data-terminal="1">1 — Cadastrar</button><button data-terminal="2">2 — Consultar</button><button data-terminal="0">0 — Sair</button><button data-terminal="reset">↻ Reiniciar</button></div></div>
-      </div>
-    </section>
-
-    <section id="atividade" class="section activity-section">
-      <div class="section-title"><span>Roteiro prático</span><h2>📝 Desafio — Papelaria Ponto Certo</h2><p>Responda diretamente no site. Suas respostas serão salvas e incluídas no PDF final.</p></div>
-      <div class="material-card docx"><div><strong>📄 Roteiro original da atividade</strong><p>Você também pode abrir o documento fornecido pela SEDUC-SP.</p></div><a class="btn secondary" href="materials/atividade.docx" target="_blank" rel="noopener">Abrir atividade</a></div>
-
-      <article class="activity-step"><div class="step-no">1</div><div><h3>Evoluindo o sistema</h3><p>O programa será ampliado com duas melhorias principais: validar o preço informado durante o cadastro e consultar produtos cadastrados pelo nome.</p></div></article>
-
-      <article class="activity-step interactive"><div class="step-no">2</div><div class="wide"><h3>Tornando o cadastro mais confiável</h3><p>Complete a condição do <code>while</code> para que o programa continue solicitando o preço enquanto ele não for válido.</p>
-        <pre class="editable-code"><code>def cadastrar_produto(produtos):
-    nome = input("Nome do produto: ")
-    preco_valido = False
-    while <input id="codePrice" class="inline-code-input" aria-label="Condição do while para validação do preço" placeholder="complete aqui">:
-        preco = float(input("Preço do produto (maior que zero): "))
-        if preco &gt; 0:
-            preco_valido = True
-        else:
-            print("Preço inválido. Digite um valor maior que zero.")
-    produtos.append((nome, preco))
-    print("Produto cadastrado com sucesso!")</code></pre>
-        <div class="answer-actions"><button class="btn secondary check-code" data-check="price">Verificar resposta</button><button class="btn ghost hint-btn" data-hint="price">Mostrar dica</button><button class="btn ghost clear-code" data-clear="codePrice">Limpar</button></div><p id="feedbackPrice" class="feedback" aria-live="polite"></p>
-        <label class="discursive">Por que a validação do preço utiliza uma estrutura de repetição?<textarea id="answerPriceWhy" rows="4" placeholder="Escreva sua explicação..."></textarea></label>
-      </div></article>
-
-      <article class="activity-step interactive"><div class="step-no">3</div><div class="wide"><h3>Integrando a consulta ao menu</h3><p>Conecte a função <code>consultar_produto()</code> à opção 2.</p>
-        <pre class="editable-code"><code>while continuar:
-    mostrar_menu(len(produtos))
-    opcao = input("Escolha uma opção: ")
     if opcao == "1":
         cadastrar_produto(produtos)
-    elif opcao == "2":
-        <input id="codeConsultCall" class="inline-code-input long" aria-label="Chamada da função consultar produto" placeholder="complete aqui">
     elif opcao == "0":
-        continuar = False
-    else:
-        print("Opção inválida.")</code></pre>
-        <div class="answer-actions"><button class="btn secondary check-code" data-check="call">Verificar resposta</button><button class="btn ghost hint-btn" data-hint="call">Mostrar dica</button><button class="btn ghost clear-code" data-clear="codeConsultCall">Limpar</button></div><p id="feedbackCall" class="feedback" aria-live="polite"></p>
-        <label class="discursive">Como a integração dessa nova função amplia o sistema sem modificar a estrutura principal do menu?<textarea id="answerIntegration" rows="4" placeholder="Escreva sua explicação..."></textarea></label>
-      </div></article>
+        continuar = False</code></pre></div>
+        <div><h3>O que está acontecendo?</h3><p>O <code>while</code> mantém o programa em execução. Cada volta do laço exibe o menu novamente. A opção 1 chama uma função. A opção 0 altera a variável de controle e encerra o ciclo.</p><div class="real-life"><b>🌎 Na vida real</b><p>Esse padrão aparece em menus de atendimento, softwares de gestão e sistemas de cadastro.</p></div></div>
+      </div>
 
-      <article class="activity-step interactive"><div class="step-no">4</div><div class="wide"><h3>Adicionando a consulta</h3><p>Complete a condição do <code>while</code> para continuar a busca enquanto ainda houver produtos para verificar e o item ainda não tiver sido encontrado.</p>
-        <pre class="editable-code"><code>def consultar_produto(produtos):
-    nome_busca = input("Digite o nome do produto: ")
-    encontrado = False
-    i = 0
-    while <input id="codeSearchWhile" class="inline-code-input xl" aria-label="Condição do while da consulta" placeholder="complete aqui">:
-        if produtos[i][0] == nome_busca:
-            print(f"Produto encontrado: {produtos[i][0]} - R$ {produtos[i][1]:.2f}")
-            encontrado = True
-        i += 1
-    if not encontrado:
-        print("Produto não encontrado.")</code></pre>
-        <div class="answer-actions"><button class="btn secondary check-code" data-check="search">Verificar resposta</button><button class="btn ghost hint-btn" data-hint="search">Mostrar dica</button><button class="btn ghost clear-code" data-clear="codeSearchWhile">Limpar</button></div><p id="feedbackSearch" class="feedback" aria-live="polite"></p>
-        <label class="discursive">Por que a condição do <code>while</code> verifica duas situações ao mesmo tempo?<textarea id="answerSearchWhy" rows="4" placeholder="Escreva sua explicação..."></textarea></label>
-      </div></article>
-
-      <article class="test-panel"><h3>Testes solicitados</h3><div class="check-grid"><label><input type="checkbox" data-test="two-products"> Cadastrei pelo menos dois produtos</label><label><input type="checkbox" data-test="existing"> Consultei um produto existente</label><label><input type="checkbox" data-test="missing"> Consultei um produto inexistente</label><label><input type="checkbox" data-test="invalid-price"> Testei um preço inválido</label><label><input type="checkbox" data-test="menu-keeps"> Verifiquei se o menu continua funcionando</label></div></article>
-
-      <article class="test-panel"><h3>Checklist do produto esperado</h3><div class="check-grid"><label><input type="checkbox" data-checklist="price"> O programa aceita apenas preços maiores que zero</label><label><input type="checkbox" data-checklist="register"> O cadastro é realizado corretamente</label><label><input type="checkbox" data-checklist="find"> A consulta localiza produtos existentes</label><label><input type="checkbox" data-checklist="notfound"> O programa informa quando o produto não é encontrado</label><label><input type="checkbox" data-checklist="menu"> O menu continua funcionando após cada operação</label></div></article>
-
-      <article class="reflection"><h3>Reflexão final para o AVA</h3><p>Escreva um breve relato de 5 a 8 linhas explicando como o programa evoluiu ao longo da semana, desde o primeiro menu até o sistema capaz de cadastrar e consultar produtos.</p><textarea id="finalReflection" rows="8" placeholder="Escreva seu relato aqui..."></textarea><div class="counter"><span id="reflectionCount">0 caracteres</span><span>Referência: aproximadamente 5–8 linhas</span></div></article>
+      <div class="material"><div><h3>📑 Slides da Aula 3</h3><p>Observe no material como repetição, decisão e funções trabalham juntas no projeto Papelaria Ponto Certo.</p></div><a class="btn secondary" href="materials/aula3.pptx" target="_blank">Abrir slides</a></div>
+      <div class="quiz" data-quiz="lesson3"><div class="quiz-head"><h3>Quiz da Aula 3</h3><span class="quiz-score"></span></div><div class="quiz-body"></div><div class="quiz-actions"><button class="btn primary correct-quiz" type="button">Corrigir quiz</button><button class="btn secondary retry-quiz" type="button">Refazer quiz</button></div></div>
     </section>
 
-    <section id="quiz-geral" class="section">
-      <div class="section-title"><span>Revisão</span><h2>🎯 Teste seus conhecimentos</h2><p>10 questões misturando os principais conceitos das quatro aulas.</p></div>
-      <div class="quiz-box general" data-quiz="general"><div class="quiz-content"></div><div class="quiz-footer"><span class="score"></span><button class="btn ghost retry" type="button">Refazer quiz</button></div></div>
+    <section id="aula4" class="section lesson">
+      <div class="lesson-title"><span class="number">04</span><div><span class="kicker">Aula 4 · SISANO1C1B4S21A4</span><h2>Validação e consulta de produtos</h2><p>Agora o sistema precisa ser mais confiável: validar preços, armazenar produtos e procurar informações.</p></div></div>
+
+      <div class="theory-grid three">
+        <article class="theory-card"><h3>Validação de preço</h3><p>O sistema não deve aceitar valores menores ou iguais a zero. Enquanto o preço for inválido, deve pedir novamente.</p><div class="analogy"><b>💡 Pense assim</b><p>É como preencher um formulário que não aceita uma data impossível: o sistema pede correção antes de continuar.</p></div></article>
+        <article class="theory-card"><h3>Cadastro</h3><p>Produto e preço são armazenados juntos para uso posterior.</p><div class="analogy"><b>💡 Pense assim</b><p>É como colocar uma ficha de produto em um arquivo: nome e preço ficam ligados à mesma ficha.</p></div></article>
+        <article class="theory-card"><h3>Consulta</h3><p>O programa percorre os produtos cadastrados até encontrar o nome procurado ou terminar a lista.</p><div class="analogy"><b>💡 Pense assim</b><p>É como procurar um livro em uma estante, posição por posição, até encontrá-lo ou chegar ao fim.</p></div></article>
+      </div>
+
+      <div class="code-explain">
+        <div><h3>Por que duas condições?</h3><pre><code>while i &lt; len(produtos) and not encontrado:
+    ...</code></pre></div>
+        <div><p>A busca só continua enquanto <strong>ainda existe um produto para verificar</strong> e o item <strong>ainda não foi encontrado</strong>. Se qualquer uma dessas condições deixar de ser verdadeira, o laço para.</p><div class="analogy"><b>💡 Pense assim</b><p>Você procura uma chave em várias gavetas: para quando encontra a chave OU quando não restam mais gavetas.</p></div></div>
+      </div>
+
+      <div class="material"><div><h3>📑 Slides da Aula 4</h3><p>Revise a evolução final do sistema e depois realize a atividade prática.</p></div><a class="btn secondary" href="materials/aula4.pptx" target="_blank">Abrir slides</a><a class="btn secondary" href="materials/atividade.docx" target="_blank">Abrir atividade DOCX</a></div>
+      <div class="quiz" data-quiz="lesson4"><div class="quiz-head"><h3>Quiz da Aula 4</h3><span class="quiz-score"></span></div><div class="quiz-body"></div><div class="quiz-actions"><button class="btn primary correct-quiz" type="button">Corrigir quiz</button><button class="btn secondary retry-quiz" type="button">Refazer quiz</button></div></div>
     </section>
 
-    <section id="resumo" class="section summary-section">
-      <div class="section-title"><span>Síntese</span><h2>📚 Resumo da Semana 21</h2></div>
-      <div class="summary-grid"><article><b>Menu</b><p>Apresenta opções para o usuário.</p></article><article><b>Entrada</b><p>Informação fornecida pelo usuário.</p></article><article><b>Decisão</b><p>Define qual ação será executada.</p></article><article><b>Repetição</b><p>Mantém uma ação enquanto uma condição for verdadeira.</p></article><article><b>Função</b><p>Organiza uma responsabilidade específica.</p></article><article><b>Validação</b><p>Verifica se uma informação pode ser aceita.</p></article><article><b>Lista</b><p>Mantém vários dados durante a execução.</p></article><article><b>Consulta</b><p>Percorre os dados procurando uma informação.</p></article></div>
-      <div class="formula">MENU + REPETIÇÃO + DECISÃO + FUNÇÕES + DADOS = <strong>SISTEMA INTERATIVO</strong></div>
+    <section id="laboratorio" class="section">
+      <div class="section-head"><span>Prática guiada</span><h2>💻 Laboratório de Lógica</h2><p>Teste mentalmente o fluxo antes de programar.</p></div>
+      <div class="lab-grid">
+        <div class="terminal lab-terminal"><div class="terminal-bar"><i></i><i></i><i></i><span>simulador</span></div><div id="terminalOutput" class="terminal-output"></div><div class="terminal-buttons"><button type="button" data-terminal="1">1 - Cadastrar</button><button type="button" data-terminal="2">2 - Consultar</button><button type="button" data-terminal="0">0 - Sair</button><button id="resetTerminal" type="button">Reiniciar</button></div></div>
+        <div class="panel"><h3>O que o simulador demonstra?</h3><p>Ele não executa Python real. Seu objetivo é representar visualmente o comportamento lógico do menu: receber uma escolha, tomar uma decisão, executar uma ação e voltar ao menu enquanto o sistema estiver ativo.</p><div class="analogy"><b>💡 Pense assim</b><p>Você está “encenando” o programa para entender a lógica antes de escrever todo o código.</p></div></div>
+      </div>
     </section>
 
-    <section id="entrega" class="section delivery-section">
-      <div class="section-title"><span>Entrega</span><h2>📄 Revisar, finalizar e gerar PDF</h2><p>Confira seus dados e respostas antes de criar o arquivo para anexar na plataforma.</p></div>
-      <div id="pendingBox" class="pending-box" hidden></div>
-      <div class="delivery-actions"><button id="previewBtn" class="btn secondary" type="button">Visualizar entrega</button><button id="pdfBtn" class="btn primary" type="button">Gerar PDF para entrega</button></div>
-      <div id="previewPanel" class="preview-panel" hidden></div>
-      <div class="privacy-note">🔒 As respostas ficam salvas somente neste navegador. O PDF é gerado localmente e o site não envia respostas para um servidor.</div>
+    <section id="atividade" class="section">
+      <div class="section-head"><span>Atividade prática</span><h2>📝 Papelaria Ponto Certo</h2><p>Responda diretamente no site. As respostas ficam salvas neste navegador.</p></div>
+
+      <div class="activity-step"><span>Parte 2</span><h3>Tornando o cadastro mais confiável</h3><div class="remember"><b>📚 O que lembrar</b><p>A variável <code>preco_valido</code> começa como <code>False</code>. O laço deve continuar enquanto o preço ainda não for considerado válido.</p></div><pre><code>preco_valido = False
+while <input id="codePrice" class="code-input" aria-label="Condição do while para validação">:
+    preco = float(input("Preço: "))</code></pre><div class="activity-actions"><button class="btn primary check-code" type="button" data-check="price">Verificar</button><button class="btn secondary hint-btn" type="button" data-hint="price">Mostrar dica</button><button class="btn secondary clear-code" type="button" data-clear="codePrice">Limpar</button></div><div id="feedbackPrice" class="inline-feedback"></div><label>Por que a validação do preço utiliza uma estrutura de repetição?<textarea id="answerPriceWhy" rows="4"></textarea></label></div>
+
+      <div class="activity-step"><span>Parte 3</span><h3>Integrando a consulta ao menu</h3><div class="remember"><b>📚 O que lembrar</b><p>A opção 2 precisa chamar a função responsável pela consulta e passar a mesma lista de produtos.</p></div><pre><code>elif opcao == "2":
+    <input id="codeConsultCall" class="code-input long" aria-label="Chamada da função de consulta"></code></pre><div class="activity-actions"><button class="btn primary check-code" type="button" data-check="call">Verificar</button><button class="btn secondary hint-btn" type="button" data-hint="call">Mostrar dica</button><button class="btn secondary clear-code" type="button" data-clear="codeConsultCall">Limpar</button></div><div id="feedbackCall" class="inline-feedback"></div><label>Como a integração dessa nova função amplia o sistema sem modificar a estrutura principal do menu?<textarea id="answerIntegration" rows="4"></textarea></label></div>
+
+      <div class="activity-step"><span>Parte 4</span><h3>Adicionando a consulta</h3><div class="remember"><b>📚 O que lembrar</b><p>A busca deve continuar somente enquanto houver itens para verificar e enquanto o produto ainda não tiver sido encontrado.</p></div><pre><code>encontrado = False
+i = 0
+while <input id="codeSearchWhile" class="code-input long" aria-label="Condição de busca">:
+    ...</code></pre><div class="activity-actions"><button class="btn primary check-code" type="button" data-check="search">Verificar</button><button class="btn secondary hint-btn" type="button" data-hint="search">Mostrar dica</button><button class="btn secondary clear-code" type="button" data-clear="codeSearchWhile">Limpar</button></div><div id="feedbackSearch" class="inline-feedback"></div><label>Por que a condição do <code>while</code> verifica duas situações ao mesmo tempo?<textarea id="answerSearchWhy" rows="4"></textarea></label></div>
+
+      <div class="activity-step"><span>Testes</span><h3>Confirme os testes realizados</h3><div class="check-grid"><label><input type="checkbox" data-test="two"> Cadastrei pelo menos dois produtos</label><label><input type="checkbox" data-test="existing"> Consultei um produto existente</label><label><input type="checkbox" data-test="missing"> Consultei um produto inexistente</label><label><input type="checkbox" data-test="invalid"> Testei um preço inválido</label><label><input type="checkbox" data-test="menu"> Confirmei que o menu continua funcionando</label></div></div>
+
+      <div class="activity-step"><span>Checklist</span><h3>Produto esperado</h3><div class="check-grid"><label><input type="checkbox" data-checklist="price"> O programa aceita apenas preços maiores que zero</label><label><input type="checkbox" data-checklist="register"> O cadastro funciona corretamente</label><label><input type="checkbox" data-checklist="find"> A consulta localiza produtos existentes</label><label><input type="checkbox" data-checklist="notfound"> O programa informa quando não encontra o produto</label><label><input type="checkbox" data-checklist="menu"> O menu continua funcionando após cada operação</label></div></div>
+
+      <div class="activity-step"><span>Registro no AVA</span><h3>Reflexão final</h3><p>Escreva de 5 a 8 linhas explicando como o programa evoluiu ao longo da semana, desde o primeiro menu até o sistema capaz de cadastrar e consultar produtos.</p><label>Seu relato<textarea id="finalReflection" rows="7"></textarea><small id="reflectionCount">0 caracteres</small></label></div>
+    </section>
+
+    <section id="quiz-final" class="section">
+      <div class="section-head"><span>Revisão geral</span><h2>🎯 Quiz final da Semana 21</h2><p>Questões conceituais, interpretação de código e situações-problema.</p></div>
+      <div class="quiz" data-quiz="general"><div class="quiz-head"><h3>Teste seus conhecimentos</h3><span class="quiz-score"></span></div><div class="quiz-body"></div><div class="quiz-actions"><button class="btn primary correct-quiz" type="button">Corrigir quiz</button><button class="btn secondary retry-quiz" type="button">Refazer quiz</button></div></div>
+    </section>
+
+    <section id="resumo" class="section">
+      <div class="section-head"><span>Fechamento</span><h2>Resumo da Semana 21</h2></div>
+      <div class="summary-grid"><article><b>Menu</b><p>Apresenta opções ao usuário.</p></article><article><b>Entrada</b><p>Recebe dados.</p></article><article><b>Decisão</b><p>Escolhe o caminho.</p></article><article><b>Repetição</b><p>Mantém ações acontecendo enquanto necessário.</p></article><article><b>Função</b><p>Organiza uma responsabilidade.</p></article><article><b>Validação</b><p>Impede dados inválidos.</p></article><article><b>Cadastro</b><p>Armazena informações.</p></article><article><b>Consulta</b><p>Procura dados cadastrados.</p></article></div>
+    </section>
+
+    <section id="entrega" class="section">
+      <div class="section-head"><span>Finalização</span><h2>📄 Revisar e gerar PDF</h2><p>O sistema verifica as pendências antes de liberar a entrega.</p></div>
+      <div id="messageBox" class="message-box" hidden></div>
+      <div class="delivery-actions"><button id="previewBtn" class="btn secondary" type="button">Visualizar entrega</button><button id="pdfBtn" class="btn primary" type="button">Gerar PDF para entrega</button><button id="printBtn" class="btn secondary" type="button">Imprimir / Salvar como PDF</button></div>
+      <div id="previewPanel" class="report-preview" hidden></div>
+      <section id="printReport" class="print-report" aria-hidden="true"></section>
     </section>
   </main>
 
-  <footer><strong>Semana 21 — Técnico em Desenvolvimento de Sistemas</strong><span>Material interativo baseado nos arquivos fornecidos da Educação Profissional Paulista.</span></footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhyJmS6zldmCvlv0r8qHcM3gO/SFvQ9H4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="script.js"></script>
+  <footer><p>Semana 21 · Lógica de Programação · Técnico em Desenvolvimento de Sistemas</p></footer>
 </body>
 </html>

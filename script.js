@@ -1,112 +1,211 @@
-const STORAGE_KEY = 'semana21-ds-v1';
-const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-state.student ??= {}; state.study ??= {}; state.quizzes ??= {}; state.activity ??= {}; state.tests ??= {}; state.checklist ??= {}; state.codeChecks ??= {};
+'use strict';
 
-const quizzes = {
-  lesson1: [
-    {q:'Em um programa com menu, qual etapa recebe a opção digitada pelo usuário?', options:['Saída','Entrada','Decisão','Repetição'], a:1, explain:'Entrada é o momento em que o programa recebe uma informação do usuário.'},
-    {q:'Qual etapa compara a opção digitada com as alternativas disponíveis?', options:['Decisão','Saída','Entrada','Impressão'], a:0, explain:'A decisão escolhe qual caminho o programa seguirá.'},
-    {q:'Depois de executar uma ação, o programa apresenta uma mensagem ou resultado. Essa etapa é:', options:['Entrada','Validação','Saída','Função'], a:2, explain:'Saída é a apresentação do resultado ao usuário.'},
-    {q:'O que falta a um menu que executa apenas uma opção e termina, caso ele precise continuar disponível?', options:['Uma imagem','Uma estrutura que repita o fluxo','Mais variáveis','Um comentário'], a:1, explain:'O menu precisa executar novamente o fluxo, ideia aprofundada com estruturas de repetição.'}
-  ],
-  lesson2: [
-    {q:'Qual é a principal finalidade das funções apresentada na Aula 2?', options:['Aumentar o tamanho do código','Organizar tarefas em responsabilidades específicas','Eliminar todas as decisões','Substituir o menu'], a:1, explain:'Funções ajudam a organizar e reutilizar o código.'},
-    {q:'A função mostrar_menu() deve ter como responsabilidade principal:', options:['Cadastrar produtos','Encerrar o computador','Exibir o menu','Validar preços'], a:2, explain:'Cada função deve concentrar uma responsabilidade específica.'},
-    {q:'Se o usuário digitar uma opção inexistente, o programa deve primeiro:', options:['Executar qualquer função','Validar a entrada','Fechar sem aviso','Ignorar sempre'], a:1, explain:'A validação evita comportamentos inesperados e orienta o usuário.'},
-    {q:'Organizar o código em funções elimina a necessidade de validar entradas?', options:['Sim','Não'], a:1, explain:'Funções melhoram organização; validação melhora confiabilidade. São responsabilidades diferentes.'}
-  ],
-  lesson3: [
-    {q:'O que garante que o menu continue sendo exibido até o usuário escolher sair?', options:['O tamanho do texto','O número de opções','A estrutura de repetição que envolve o menu','A velocidade de digitação'], a:2, explain:'O loop mantém o menu em execução até a condição de saída.'},
-    {q:'Qual estrutura é adequada para manter o menu funcionando enquanto uma condição for verdadeira?', options:['while','print','input','def'], a:0, explain:'while repete um bloco enquanto sua condição for verdadeira.'},
-    {q:'Ao escolher uma opção do menu, qual estrutura ajuda a decidir qual função será executada?', options:['if/elif/else','comentário','import','float'], a:0, explain:'As estruturas de decisão direcionam o fluxo conforme a opção.'},
-    {q:'Na Aula 3, repetição, decisão e funções passam a:', options:['Funcionar isoladamente','Trabalhar juntas durante a execução','Ser removidas','Virar apenas texto'], a:1, explain:'O projeto integra essas estruturas para manter o sistema interativo.'}
-  ],
-  lesson4: [
-    {q:'Qual melhoria torna o cadastro da Papelaria Ponto Certo mais confiável?', options:['Aceitar qualquer preço','Validar o preço informado','Remover o cadastro','Cadastrar sem nome'], a:1, explain:'A atividade pede que o preço seja validado antes do cadastro.'},
-    {q:'A consulta de produtos proposta no material procura o item por:', options:['Cor','Nome','Data','Código de barras'], a:1, explain:'O roteiro solicita consulta de produtos cadastrados pelo nome.'},
-    {q:'Ao final da atividade, as novas funcionalidades devem:', options:['Ficar separadas do menu','Ser integradas ao mesmo menu','Apagar as funções anteriores','Funcionar só uma vez'], a:1, explain:'Cadastro, consulta e saída devem permanecer integrados ao menu.'},
-    {q:'Qual cenário também deve ser testado?', options:['Somente produto existente','Produto existente e inexistente','Apenas saída','Nenhum teste'], a:1, explain:'O roteiro pede consulta de item existente e inexistente.'}
-  ],
-  general: [
-    {q:'Entrada é:',options:['A resposta final','A informação recebida do usuário','Uma função sem parâmetros','O encerramento'],a:1,explain:'Entrada é a informação recebida pelo programa.'},
-    {q:'A estrutura de decisão usada no projeto é representada principalmente por:',options:['if/elif/else','def','print','float'],a:0,explain:'if/elif/else seleciona caminhos conforme condições.'},
-    {q:'Uma função ajuda principalmente a:',options:['Organizar uma tarefa específica','Apagar dados automaticamente','Evitar qualquer repetição','Substituir o usuário'],a:0,explain:'Funções agrupam instruções de uma mesma responsabilidade.'},
-    {q:'Validação de entrada torna o programa:',options:['Mais confiável','Obrigatoriamente mais lento','Sem menu','Sem funções'],a:0,explain:'Ela evita execução de opções inesperadas.'},
-    {q:'O loop do menu permite:',options:['Executar apenas uma vez','Repetir o fluxo até a saída','Somente imprimir textos','Criar arquivos'],a:1,explain:'O loop mantém o menu disponível até a decisão de encerrar.'},
-    {q:'No cadastro, o preço esperado deve ser:',options:['Menor que zero','Igual a zero','Maior que zero','Sempre texto'],a:2,explain:'A atividade solicita aceitar apenas preços maiores que zero.'},
-    {q:'A função de consulta procura produtos:',options:['Pelo nome','Pela cor','Pelo tamanho da tela','Pelo menu'],a:0,explain:'A busca proposta usa o nome do produto.'},
-    {q:'Se um produto não for encontrado, o programa deve:',options:['Informar que não foi encontrado','Encerrar sem mensagem','Cadastrar outro automaticamente','Apagar a lista'],a:0,explain:'O roteiro prevê uma mensagem para produto inexistente.'},
-    {q:'Qual combinação representa a evolução da semana?',options:['Menu → funções → validação → cadastro/consulta integrados','Imagem → vídeo → áudio','Banco de dados → API → nuvem','HTML → CSS → JavaScript'],a:0,explain:'A sequência trabalha progressivamente o menu e suas funcionalidades em Python.'},
-    {q:'O menu deve continuar funcionando após cada operação?',options:['Sim','Não'],a:0,explain:'Esse é um dos itens do checklist final da atividade.'}
-  ]
-};
+document.addEventListener('DOMContentLoaded', () => {
+  const $ = (s, root=document) => root.querySelector(s);
+  const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+  const STORAGE_KEY = 'logicaSemana21V3';
+  const defaultState = {student:{}, quizzes:{}, activity:{}, codeChecks:{}, tests:{}, checklist:{}, theme:'light'};
+  let state = loadState();
 
-const $ = s => document.querySelector(s); const $$ = s => [...document.querySelectorAll(s)];
-function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); const el=$('#saveStatus'); if(el){el.classList.add('show'); clearTimeout(save.t); save.t=setTimeout(()=>el.classList.remove('show'),1200);} updateProgress(); }
-function escapeHTML(v=''){return v.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+  function loadState(){
+    try { return {...defaultState, ...(JSON.parse(localStorage.getItem(STORAGE_KEY))||{})}; }
+    catch { return structuredClone(defaultState); }
+  }
+  function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); showSaved(); updateProgress(); }
+  let saveTimer;
+  function showSaved(){ const el=$('#saveStatus'); if(!el) return; el.textContent='✓ Progresso salvo'; el.style.opacity='1'; clearTimeout(saveTimer); saveTimer=setTimeout(()=>el.style.opacity='.65',1200); }
+  function escapeHTML(v=''){ return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+  function normalize(v=''){ return v.toLowerCase().replace(/\s+/g,'').replace(/\(|\)/g,m=>m); }
 
-const studentMap={studentName:'name',studentClass:'class',studentNumber:'number',studentDate:'date'};
-Object.entries(studentMap).forEach(([id,key])=>{const el=$('#'+id); el.value=state.student[key]||''; el.addEventListener('input',()=>{state.student[key]=el.value;save();});});
-if(!state.student.date){ const d=new Date(); $('#studentDate').value=d.toISOString().slice(0,10); state.student.date=$('#studentDate').value; save(); }
+  // Tema
+  const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+  if(!state.theme) state.theme = prefersDark ? 'dark' : 'light';
+  applyTheme();
+  $('#themeToggle').addEventListener('click',()=>{ state.theme = state.theme==='dark'?'light':'dark'; applyTheme(); saveState(); });
+  function applyTheme(){ document.documentElement.dataset.theme=state.theme; const b=$('#themeToggle'); b.innerHTML=state.theme==='dark'?'☀️ <span>Modo claro</span>':'🌙 <span>Modo escuro</span>'; }
 
-$('#menuBtn').addEventListener('click',()=>{const n=$('#nav');n.classList.toggle('open');$('#menuBtn').setAttribute('aria-expanded',n.classList.contains('open'));});
-$$('#nav a').forEach(a=>a.addEventListener('click',()=>$('#nav').classList.remove('open')));
+  // Menu móvel
+  $('#menuToggle').addEventListener('click',()=>$('#mainNav').classList.toggle('open'));
+  $$('#mainNav a').forEach(a=>a.addEventListener('click',()=>$('#mainNav').classList.remove('open')));
 
-const conceptText={entrada:'Entrada: o programa recebe uma informação do usuário, como a opção escolhida no menu.',processamento:'Processamento: o programa trabalha com os dados necessários para realizar a operação solicitada.',decisao:'Decisão: o programa compara condições e escolhe qual ação executar.',repeticao:'Repetição: permite executar novamente o fluxo para que o menu continue disponível enquanto necessário.',saida:'Saída: o programa apresenta uma mensagem, cálculo, consulta ou outro resultado ao usuário.'};
-$$('[data-concept]').forEach(b=>b.addEventListener('click',()=>$('#conceptDetail').textContent=conceptText[b.dataset.concept]));
+  // Identificação
+  const studentMap={studentName:'name',studentClass:'class',studentNumber:'number',studentDate:'date'};
+  Object.entries(studentMap).forEach(([id,key])=>{ const el=$('#'+id); el.value=state.student[key]||''; el.addEventListener('input',()=>{state.student[key]=el.value; saveState();}); });
+  if(!state.student.date){ const d=new Date(); $('#studentDate').value=d.toISOString().slice(0,10); state.student.date=$('#studentDate').value; saveState(); }
 
-$$('.studied').forEach(btn=>{const k=btn.dataset.study; if(state.study[k]) btn.textContent='✓ Slides estudados'; btn.addEventListener('click',()=>{state.study[k]=true;btn.textContent='✓ Slides estudados';save();});});
+  // Revelações
+  $$('.reveal-btn').forEach(btn=>btn.addEventListener('click',()=>{ const el=$('#'+btn.dataset.reveal); el.hidden=!el.hidden; }));
 
-function renderQuiz(box){ const key=box.dataset.quiz; const items=quizzes[key]; const saved=state.quizzes[key]||{answers:{}}; state.quizzes[key]=saved; const root=box.querySelector('.quiz-content'); root.innerHTML=items.map((it,i)=>`<div class="question" data-i="${i}"><p>${i+1}. ${it.q}</p><div class="option-list">${it.options.map((o,j)=>`<label class="option"><input type="radio" name="${key}-${i}" value="${j}" ${Number(saved.answers[i])===j?'checked':''}> <span>${o}</span></label>`).join('')}</div><div class="q-feedback" aria-live="polite"></div></div>`).join('');
-  root.querySelectorAll('input[type=radio]').forEach(inp=>inp.addEventListener('change',()=>{const i=Number(inp.closest('.question').dataset.i);saved.answers[i]=Number(inp.value);const fb=inp.closest('.question').querySelector('.q-feedback');const ok=Number(inp.value)===items[i].a;fb.textContent=(ok?'✓ Correto. ':'✕ Revise. ')+items[i].explain;fb.className='q-feedback '+(ok?'good':'bad'); updateScore(box,key);save();}));
-  root.querySelectorAll('.question').forEach(q=>{const i=Number(q.dataset.i); if(saved.answers[i]!==undefined){const ok=Number(saved.answers[i])===items[i].a;const fb=q.querySelector('.q-feedback');fb.textContent=(ok?'✓ Correto. ':'✕ Revise. ')+items[i].explain;fb.className='q-feedback '+(ok?'good':'bad');}});
-  box.querySelector('.retry').addEventListener('click',()=>{state.quizzes[key]={answers:{}};save();renderQuiz(box);}); updateScore(box,key);
-}
-function updateScore(box,key){const items=quizzes[key], ans=state.quizzes[key]?.answers||{};const answered=Object.keys(ans).length;const correct=items.reduce((n,_,i)=>n+(Number(ans[i])===items[i].a?1:0),0); const pct=Math.round(correct/items.length*100);let msg='';if(answered===items.length){msg=key==='general'?(pct>=90?' — Excelente domínio':pct>=70?' — Bom desempenho':pct>=50?' — Revise alguns conceitos':' — Recomenda-se revisar as aulas'):''; state.quizzes[key].completed=true;state.quizzes[key].score=correct;state.quizzes[key].pct=pct;} box.querySelector('.score').textContent=`Pontuação: ${correct}/${items.length}${answered===items.length?` (${pct}%)${msg}`:` — ${answered}/${items.length} respondidas`}`;}
-$$('.quiz-box').forEach(renderQuiz);
+  // Fluxo aula 1
+  const flowText={
+    entrada:'Entrada: o programa recebe um dado do usuário, como uma opção digitada.',
+    processamento:'Processamento: o programa usa os dados recebidos para realizar alguma operação.',
+    decisao:'Decisão: o programa compara condições e escolhe qual bloco executar.',
+    saida:'Saída: o resultado é apresentado ao usuário.',
+    repeticao:'Repetição: o fluxo volta ao início para permitir uma nova operação enquanto a condição permitir.'
+  };
+  $$('.flow-step').forEach(b=>b.addEventListener('click',()=>$('#flowDetail').textContent=flowText[b.dataset.flow]));
 
-const labs={
-  while:{title:'while — repetição',desc:'Repete um bloco enquanto uma condição continuar verdadeira. No projeto, mantém o menu funcionando e também pode validar dados ou controlar uma busca.',code:`continuar = True\nwhile continuar:\n    mostrar_menu()\n    opcao = input("Escolha: ")`},
-  decisao:{title:'if / elif / else — decisão',desc:'Seleciona o caminho do programa de acordo com a opção informada.',code:`if opcao == "1":\n    cadastrar_produto(produtos)\nelif opcao == "2":\n    consultar_produto(produtos)\nelse:\n    print("Opção inválida.")`},
-  funcoes:{title:'def — funções',desc:'Agrupa instruções de uma mesma responsabilidade, melhorando organização e manutenção.',code:`def mostrar_menu():\n    print("1 - Cadastrar")\n    print("2 - Consultar")\n    print("0 - Sair")`},
-  lista:{title:'lista — dados em memória',desc:'Os produtos ficam armazenados durante a execução e podem ser percorridos pela consulta.',code:`produtos = []\nprodutos.append((nome, preco))`},
-  validacao:{title:'validação',desc:'Impede que informações inválidas sejam aceitas e orienta o usuário a tentar novamente.',code:`if preco > 0:\n    preco_valido = True\nelse:\n    print("Preço inválido.")`}
-};
-$('#labTabs').innerHTML=Object.entries(labs).map(([k,v],i)=>`<button class="${i===0?'active':''}" data-lab="${k}">${v.title.split(' — ')[0]}</button>`).join('');
-function showLab(k){const v=labs[k];$('#labContent').innerHTML=`<h3>${v.title}</h3><p>${v.desc}</p><pre><code>${escapeHTML(v.code)}</code></pre>`;$$('[data-lab]').forEach(b=>b.classList.toggle('active',b.dataset.lab===k));}
-$$('[data-lab]').forEach(b=>b.addEventListener('click',()=>showLab(b.dataset.lab)));showLab('while');
+  // Simulador de terminal
+  let terminalRunning=true;
+  function showMenu(extra=''){ $('#terminalOutput').textContent=(extra?extra+'\n\n':'')+'===== PAPELARIA PONTO CERTO =====\n1 - Cadastrar produto\n2 - Consultar produto\n0 - Sair\n\nEscolha uma opção:'; }
+  showMenu('Sistema iniciado.');
+  $$('[data-terminal]').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!terminalRunning){ $('#terminalOutput').textContent+='\n\nO sistema foi encerrado. Clique em Reiniciar.'; return; }
+    const op=btn.dataset.terminal;
+    if(op==='1') showMenu('→ Opção 1 escolhida\nFunção cadastrar_produto(produtos) seria chamada.\n✓ Depois da operação, o menu aparece novamente.');
+    if(op==='2') showMenu('→ Opção 2 escolhida\nFunção consultar_produto(produtos) seria chamada.\n✓ Depois da operação, o menu aparece novamente.');
+    if(op==='0'){ terminalRunning=false; $('#terminalOutput').textContent='→ Opção 0 escolhida\nEncerrando...\n\nO laço terminou porque a condição de continuidade deixou de ser verdadeira.'; }
+  }));
+  $('#resetTerminal').addEventListener('click',()=>{terminalRunning=true;showMenu('Sistema reiniciado.');});
 
-let terminalProducts=[];let terminalRunning=true;function printTerminal(s){const out=$('#terminalOutput');out.textContent+=s+'\n';out.scrollTop=out.scrollHeight;}function terminalMenu(){printTerminal('\n===== PAPELARIA PONTO CERTO =====\n1 - Cadastrar produto\n2 - Consultar produto\n0 - Sair');}terminalMenu();
-$$('[data-terminal]').forEach(b=>b.addEventListener('click',()=>{const a=b.dataset.terminal;if(a==='reset'){terminalProducts=[];terminalRunning=true;$('#terminalOutput').textContent='';terminalMenu();return}if(!terminalRunning){printTerminal('Programa encerrado. Clique em Reiniciar.');return}if(a==='1'){const name=prompt('Nome do produto:');if(!name)return;const raw=prompt('Preço do produto (maior que zero):');const price=Number(String(raw).replace(',','.'));if(!(price>0)){printTerminal('Preço inválido. Digite um valor maior que zero.');}else{terminalProducts.push([name,price]);printTerminal(`Produto cadastrado: ${name} — R$ ${price.toFixed(2)}`);}terminalMenu();}else if(a==='2'){const name=prompt('Digite o nome do produto:');if(!name)return;const found=terminalProducts.find(p=>p[0].toLowerCase()===name.toLowerCase());printTerminal(found?`Produto encontrado: ${found[0]} — R$ ${found[1].toFixed(2)}`:'Produto não encontrado.');terminalMenu();}else if(a==='0'){terminalRunning=false;printTerminal('Encerrando...');}}));
+  // Banco de quizzes
+  const quizzes={
+    lesson1:[
+      {q:'Qual etapa representa o dado fornecido pelo usuário ao programa?',o:['Entrada','Saída','Repetição','Função'],a:0,e:'A entrada é o momento em que o programa recebe dados, por exemplo por input().'},
+      {q:'Depois de receber uma opção, qual estrutura pode escolher o caminho do programa?',o:['if / elif / else','print()','comentário','import'],a:0,e:'Estruturas condicionais permitem comparar a escolha e executar caminhos diferentes.'},
+      {q:'Por que um menu real costuma usar repetição?',o:['Para voltar a oferecer operações até o usuário sair','Para impedir qualquer entrada','Para apagar funções','Para substituir decisões'],a:0,e:'A repetição mantém o sistema ativo e permite várias operações na mesma execução.'},
+      {q:'Se a saída é “Encerrando...”, o que ela representa?',o:['Uma informação apresentada ao usuário','Uma entrada','Uma variável booleana','Uma função obrigatoriamente'],a:0,e:'Saída é aquilo que o programa apresenta como resultado ou mensagem.'}
+    ],
+    lesson2:[
+      {q:'Qual é a principal vantagem de dividir o programa em funções?',o:['Organizar responsabilidades e facilitar manutenção','Eliminar qualquer condição','Evitar toda repetição','Fazer o computador executar sem chamadas'],a:0,e:'Funções agrupam tarefas específicas e tornam o programa mais legível e reutilizável.'},
+      {q:'Depois de definir uma função, o que é necessário para executar seu código?',o:['Chamála','Renomear o arquivo','Usar somente print','Criar um else'],a:0,e:'Definir cria a função; chamar a função executa sua responsabilidade.'},
+      {q:'Para que serve validar uma entrada?',o:['Verificar se ela atende às regras esperadas','Transformar toda entrada em texto','Encerrar sempre o programa','Apagar a opção inválida sem avisar'],a:0,e:'Validação evita que dados inesperados quebrem ou desviem o fluxo previsto.'},
+      {q:'Qual analogia combina melhor com uma função?',o:['Um setor com responsabilidade específica','Uma tela sem botões','Um erro de sintaxe','Uma variável sem valor'],a:0,e:'Cada função pode ser entendida como um setor responsável por uma tarefa.'}
+    ],
+    lesson3:[
+      {q:'O que o while faz no menu da Papelaria Ponto Certo?',o:['Mantém o menu em execução enquanto a condição permitir','Executa apenas uma vez','Substitui todas as funções','Impede qualquer saída'],a:0,e:'O while repete o bloco e permite que o menu apareça novamente.'},
+      {q:'Se continuar começa como True e muda para False quando o usuário escolhe 0, o que acontece?',o:['O laço termina','O laço fica infinito obrigatoriamente','A lista é apagada','A função mostrar_menu deixa de existir'],a:0,e:'Quando a condição deixa de ser verdadeira, o while termina.'},
+      {q:'Qual sequência representa melhor o fluxo do menu?',o:['Mostrar menu → ler opção → decidir → executar → voltar','Sair → cadastrar → apagar → repetir','Consultar → compilar → desligar','Entrada → apagar dados → sair'],a:0,e:'O menu segue esse ciclo até que a condição de continuidade seja encerrada.'},
+      {q:'Por que funções e repetição trabalham bem juntas?',o:['O laço controla o fluxo e as funções executam tarefas específicas','Porque funções substituem o laço','Porque repetição impede chamadas','Porque ambas só servem para imprimir texto'],a:0,e:'O laço coordena quando as tarefas serão executadas; as funções realizam cada tarefa.'}
+    ],
+    lesson4:[
+      {q:'Por que validar o preço com repetição?',o:['Para pedir novamente enquanto o valor for inválido','Para aceitar qualquer valor imediatamente','Para remover o menu','Para transformar preço em nome'],a:0,e:'A repetição mantém a solicitação até que a condição de validade seja atendida.'},
+      {q:'Na busca, por que verificar “há itens” E “ainda não encontrou”?',o:['Para parar quando a lista acabar ou quando o produto for encontrado','Para repetir para sempre','Para cadastrar dois produtos','Para impedir o uso de índice'],a:0,e:'As duas condições evitam acessar além da lista e evitam continuar procurando depois de encontrar.'},
+      {q:'O que a função consultar_produto deve fazer?',o:['Procurar um produto pelo nome e informar o resultado','Cadastrar preços automaticamente','Encerrar o programa sempre','Substituir mostrar_menu'],a:0,e:'A consulta percorre os dados cadastrados em busca do nome informado.'},
+      {q:'Qual é a evolução central da Aula 4?',o:['Tornar o sistema mais confiável com validação e consulta','Eliminar o cadastro','Usar somente print','Retirar a repetição'],a:0,e:'A aula amplia o sistema com validação de preço e consulta de produtos.'}
+    ],
+    general:[
+      {q:'Em um programa com menu, o que acontece primeiro: receber a opção ou decidir o caminho?',o:['Receber a opção','Decidir sem dado algum','Consultar sempre','Sair'],a:0,e:'A decisão depende de uma informação de entrada, portanto a escolha precisa ser recebida primeiro.'},
+      {q:'Qual estrutura é mais apropriada para manter um menu ativo enquanto o usuário desejar?',o:['while','print','input sozinho','comentário'],a:0,e:'O while repete o menu com base em uma condição de continuidade.'},
+      {q:'Qual é o papel de uma função como cadastrar_produto(produtos)?',o:['Encapsular a responsabilidade de cadastrar um produto','Controlar o modo escuro','Substituir a lista','Encerrar o Python'],a:0,e:'A função concentra uma tarefa específica e pode ser chamada pelo menu.'},
+      {q:'Um preço -5 deve ser aceito?',o:['Não, a validação deve solicitar novamente','Sim, porque é número','Sim, se estiver em uma lista','Só se o menu estiver fechado'],a:0,e:'O roteiro determina que o preço deve ser maior que zero.'},
+      {q:'O que evita procurar além do último produto em uma lista?',o:['Comparar i com len(produtos)','Usar apenas print','Remover a variável i','Definir encontrado como texto'],a:0,e:'A condição de índice garante que ainda exista posição válida para verificar.'},
+      {q:'Se um produto já foi encontrado, faz sentido continuar percorrendo a lista nessa atividade?',o:['Não, a busca pode encerrar','Sim, obrigatoriamente até infinito','Sim, porque while ignora condições','Não existe produto encontrado'],a:0,e:'A variável encontrado permite interromper a busca assim que o objetivo for atingido.'},
+      {q:'Qual combinação descreve melhor um programa organizado?',o:['Menu + decisão + repetição + funções','Apenas print','Apenas variáveis','Somente comentários'],a:0,e:'Esses elementos trabalham juntos para construir o fluxo interativo.'},
+      {q:'Quando uma opção não existe, qual comportamento é mais adequado?',o:['Informar opção inválida e permitir nova tentativa','Finalizar sem mensagem','Apagar todos os dados','Aceitar como opção 1'],a:0,e:'Uma validação clara orienta o usuário e preserva o fluxo do programa.'},
+      {q:'O que significa “saída” no fluxo do programa?',o:['Informação apresentada ao usuário','Somente desligar o computador','Um valor digitado pelo usuário','Uma definição de função'],a:0,e:'Saída é qualquer resposta gerada e apresentada pelo programa.'},
+      {q:'Qual é a ideia geral da Semana 21?',o:['Evoluir um menu simples para um sistema integrado de cadastro e consulta','Criar somente uma tela gráfica','Eliminar estruturas de repetição','Programar sem decisões'],a:0,e:'As aulas evoluem progressivamente o mesmo sistema até integrar cadastro, validação e consulta.'}
+    ]
+  };
 
-const activityFields=['codePrice','answerPriceWhy','codeConsultCall','answerIntegration','codeSearchWhile','answerSearchWhy','finalReflection'];activityFields.forEach(id=>{const el=$('#'+id);el.value=state.activity[id]||'';el.addEventListener('input',()=>{state.activity[id]=el.value;save();if(id==='finalReflection')updateCounter();});});
-function updateCounter(){$('#reflectionCount').textContent=($('#finalReflection').value||'').length+' caracteres';}updateCounter();
+  function renderQuiz(key, container){
+    const body=$('.quiz-body',container); body.innerHTML='';
+    quizzes[key].forEach((item,i)=>{
+      const saved=state.quizzes[key]?.answers?.[i];
+      const div=document.createElement('div'); div.className='question';
+      div.innerHTML=`<h4>${i+1}. ${escapeHTML(item.q)}</h4><div class="options">${item.o.map((o,j)=>`<label class="option"><input type="radio" name="${key}-${i}" value="${j}" ${String(saved)===String(j)?'checked':''}> <span>${escapeHTML(o)}</span></label>`).join('')}</div><div class="explanation" hidden></div>`;
+      body.appendChild(div);
+    });
+    const qstate=state.quizzes[key];
+    $('.quiz-score',container).textContent=qstate?.completed?`Resultado: ${qstate.score}/${quizzes[key].length} (${qstate.pct}%)`:'';
+    if(qstate?.completed) applyQuizFeedback(key,container);
+    $$('input[type=radio]',container).forEach(r=>r.addEventListener('change',()=>{
+      const answers={...(state.quizzes[key]?.answers||{})};
+      const [,idx]=r.name.split('-').slice(-2); answers[Number(idx)]=Number(r.value);
+      state.quizzes[key]={...(state.quizzes[key]||{}),answers,completed:false}; saveState();
+    }));
+  }
 
-$$('[data-test]').forEach(el=>{el.checked=!!state.tests[el.dataset.test];el.addEventListener('change',()=>{state.tests[el.dataset.test]=el.checked;save();});});
-$$('[data-checklist]').forEach(el=>{el.checked=!!state.checklist[el.dataset.checklist];el.addEventListener('change',()=>{state.checklist[el.dataset.checklist]=el.checked;save();});});
+  function correctQuiz(key,container){
+    const total=quizzes[key].length; const answers={}; let missing=0;
+    quizzes[key].forEach((_,i)=>{ const r=$(`input[name="${key}-${i}"]:checked`,container); if(!r) missing++; else answers[i]=Number(r.value); });
+    if(missing){ showMessage('warning',`⚠ Responda todas as questões antes de corrigir. Faltam ${missing}.`); return; }
+    let score=0; quizzes[key].forEach((q,i)=>{ if(answers[i]===q.a) score++; });
+    const pct=Math.round(score/total*100);
+    state.quizzes[key]={answers,score,pct,completed:true}; saveState(); applyQuizFeedback(key,container);
+    $('.quiz-score',container).textContent=`Resultado: ${score}/${total} (${pct}%)`;
+    showMessage('success',`✓ Quiz corrigido: ${score}/${total} (${pct}%).`);
+  }
 
-const expected={price:v=>['!preco_valido','notpreco_valido','preco_valido==false','preco_validoisfalse'].includes(norm(v)),call:v=>norm(v)==='consultar_produto(produtos)',search:v=>['i<len(produtos)andnotencontrado','i<len(produtos)and(encontrado==false)','(i<len(produtos))andnotencontrado'].includes(norm(v))};
-const hints={price:'Pense na variável booleana que começa como False. O laço deve continuar enquanto o preço ainda não for considerado válido.',call:'A opção 2 precisa chamar a função de consulta e passar a mesma lista de produtos usada pelo restante do programa.',search:'A busca precisa continuar apenas enquanto ainda existir índice para verificar E enquanto o produto não tiver sido encontrado.'};
-function norm(v){return v.toLowerCase().replace(/\s+/g,'').replace(/false/g,'false');}
-const feedbackIds={price:'feedbackPrice',call:'feedbackCall',search:'feedbackSearch'};const inputIds={price:'codePrice',call:'codeConsultCall',search:'codeSearchWhile'};
-$$('.check-code').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.check,v=$('#'+inputIds[k]).value,ok=expected[k](v);state.codeChecks[k]=ok;const fb=$('#'+feedbackIds[k]);fb.textContent=ok?'✓ Estrutura correta. Continue para a próxima etapa.':'Ainda não. Releia o objetivo da condição e tente novamente.';fb.className='feedback '+(ok?'good':'bad');save();}));
-$$('.hint-btn').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.hint,fb=$('#'+feedbackIds[k]);fb.textContent='💡 '+hints[k];fb.className='feedback hint';}));
-$$('.clear-code').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.clear;$('#'+id).value='';state.activity[id]='';save();}));
+  function applyQuizFeedback(key,container){
+    const qs=state.quizzes[key]; if(!qs?.completed) return;
+    $$('.question',container).forEach((qEl,i)=>{
+      const item=quizzes[key][i]; const selected=qs.answers[i];
+      $$('.option',qEl).forEach((op,j)=>{ op.classList.remove('correct','wrong'); if(j===item.a) op.classList.add('correct'); if(j===selected && j!==item.a) op.classList.add('wrong'); });
+      const ex=$('.explanation',qEl); ex.hidden=false; ex.textContent=(selected===item.a?'✓ Resposta correta. ':'✕ Resposta incorreta. ')+item.e;
+    });
+  }
 
-function completedStages(){return [state.quizzes.lesson1?.completed,state.quizzes.lesson2?.completed,state.quizzes.lesson3?.completed,state.quizzes.lesson4?.completed,activityComplete(),state.quizzes.general?.completed,deliveryReady()];}
-function activityComplete(){return !!(state.codeChecks.price&&state.codeChecks.call&&state.codeChecks.search&&(state.activity.answerPriceWhy||'').trim()&&(state.activity.answerIntegration||'').trim()&&(state.activity.answerSearchWhy||'').trim()&&(state.activity.finalReflection||'').trim());}
-function deliveryReady(){return getPending().length===0;}
-function updateProgress(){const names=['Aula 1','Aula 2','Aula 3','Aula 4','Atividade','Quiz final','Entrega'];const stages=completedStages();const done=stages.filter(Boolean).length;const pct=Math.round(done/names.length*100);$('#progressBar').style.width=pct+'%';$('#progressLabel').textContent=`Progresso da Semana: ${pct}%`;$('#progressCount').textContent=`${done} de ${names.length} etapas`;$('#stepChips').innerHTML=names.map((n,i)=>`<span class="${stages[i]?'done':''}">${stages[i]?'✓ ':''}${n}</span>`).join('');}
+  function retryQuiz(key,container){ state.quizzes[key]={}; saveState(); renderQuiz(key,container); showMessage('info','Quiz reiniciado. As outras respostas foram preservadas.'); }
+  $$('.quiz').forEach(container=>{ const key=container.dataset.quiz; renderQuiz(key,container); $('.correct-quiz',container).addEventListener('click',()=>correctQuiz(key,container)); $('.retry-quiz',container).addEventListener('click',()=>retryQuiz(key,container)); });
 
-function getPending(){const p=[];if(!(state.student.name||'').trim())p.push('Nome do aluno');if(!(state.student.class||'').trim())p.push('Turma');if(!state.quizzes.lesson1?.completed)p.push('Quiz da Aula 1');if(!state.quizzes.lesson2?.completed)p.push('Quiz da Aula 2');if(!state.quizzes.lesson3?.completed)p.push('Quiz da Aula 3');if(!state.quizzes.lesson4?.completed)p.push('Quiz da Aula 4');if(!state.codeChecks.price)p.push('Parte 2 — condição de validação do preço');if(!(state.activity.answerPriceWhy||'').trim())p.push('Resposta sobre validação do preço');if(!state.codeChecks.call)p.push('Parte 3 — integração da consulta');if(!(state.activity.answerIntegration||'').trim())p.push('Resposta sobre integração da função');if(!state.codeChecks.search)p.push('Parte 4 — condição da consulta');if(!(state.activity.answerSearchWhy||'').trim())p.push('Resposta sobre a condição da busca');if(!(state.activity.finalReflection||'').trim())p.push('Reflexão final');if(!state.quizzes.general?.completed)p.push('Quiz geral');return p;}
-function scoreText(k){const q=state.quizzes[k];return q?.completed?`${q.score}/${quizzes[k].length} (${q.pct}%)`:'Não concluído';}
-function reportHTML(){return `<h2>Semana 21 — Programando com Menu no Terminal</h2><p><strong>Nome:</strong> ${escapeHTML(state.student.name||'—')}<br><strong>Turma:</strong> ${escapeHTML(state.student.class||'—')}<br><strong>Número:</strong> ${escapeHTML(state.student.number||'—')}<br><strong>Data:</strong> ${escapeHTML(state.student.date||'—')}</p><h3>Resultados</h3><p>Aula 1: ${scoreText('lesson1')}<br>Aula 2: ${scoreText('lesson2')}<br>Aula 3: ${scoreText('lesson3')}<br>Aula 4: ${scoreText('lesson4')}<br>Quiz geral: ${scoreText('general')}</p><h3>Atividade prática</h3><p><strong>Condição da validação de preço:</strong></p><pre>${escapeHTML(state.activity.codePrice||'')}</pre><p><strong>Por que usar repetição na validação?</strong><br>${escapeHTML(state.activity.answerPriceWhy||'')}</p><p><strong>Integração da consulta:</strong></p><pre>${escapeHTML(state.activity.codeConsultCall||'')}</pre><p><strong>Como a função amplia o sistema?</strong><br>${escapeHTML(state.activity.answerIntegration||'')}</p><p><strong>Condição da busca:</strong></p><pre>${escapeHTML(state.activity.codeSearchWhile||'')}</pre><p><strong>Por que verificar duas situações?</strong><br>${escapeHTML(state.activity.answerSearchWhy||'')}</p><h3>Reflexão final</h3><p>${escapeHTML(state.activity.finalReflection||'').replace(/\n/g,'<br>')}</p>`;}
-function showPending(){const p=getPending(),box=$('#pendingBox');if(!p.length){box.hidden=true;return true}box.hidden=false;box.innerHTML=`<h3>⚠ Existem etapas pendentes</h3><p>Você ainda precisa concluir:</p><ul>${p.map(x=>`<li>${escapeHTML(x)}</li>`).join('')}</ul>`;box.scrollIntoView({behavior:'smooth',block:'center'});return false;}
-$('#previewBtn').addEventListener('click',()=>{const panel=$('#previewPanel');panel.innerHTML=reportHTML();panel.hidden=!panel.hidden;});
+  // Atividade
+  const activityIds=['codePrice','answerPriceWhy','codeConsultCall','answerIntegration','codeSearchWhile','answerSearchWhy','finalReflection'];
+  activityIds.forEach(id=>{ const el=$('#'+id); el.value=state.activity[id]||''; el.addEventListener('input',()=>{state.activity[id]=el.value; saveState(); if(id==='finalReflection') updateReflectionCount();}); });
+  function updateReflectionCount(){ $('#reflectionCount').textContent=($('#finalReflection').value||'').length+' caracteres'; } updateReflectionCount();
+  $$('[data-test]').forEach(el=>{el.checked=!!state.tests[el.dataset.test];el.addEventListener('change',()=>{state.tests[el.dataset.test]=el.checked;saveState();});});
+  $$('[data-checklist]').forEach(el=>{el.checked=!!state.checklist[el.dataset.checklist];el.addEventListener('change',()=>{state.checklist[el.dataset.checklist]=el.checked;saveState();});});
 
-function cleanFilename(v){return (v||'Aluno').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'').slice(0,40)||'Aluno';}
-function addWrapped(doc,text,x,y,maxWidth,lineHeight=6){const lines=doc.splitTextToSize(String(text||'—'),maxWidth);for(const line of lines){if(y>277){doc.addPage();y=18;}doc.text(line,x,y);y+=lineHeight;}return y;}
-$('#pdfBtn').addEventListener('click',()=>{if(!showPending())return;if(!window.jspdf?.jsPDF){alert('A biblioteca de PDF não pôde ser carregada. Verifique a internet e tente novamente. Como alternativa, use Ctrl+P e escolha “Salvar como PDF”.');return;}const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4'});const W=210,margin=16,max=W-margin*2;let y=18;doc.setFont('helvetica','bold');doc.setFontSize(16);doc.text('Educação Profissional Paulista',margin,y);y+=8;doc.setFontSize(12);doc.text('Técnico em Desenvolvimento de Sistemas',margin,y);y+=6;doc.text('Semana 21 — Estruturas de Repetição',margin,y);y+=6;doc.text('Programando com Menu no Terminal',margin,y);y+=9;doc.setDrawColor(220);doc.line(margin,y,W-margin,y);y+=8;const heading=t=>{if(y>265){doc.addPage();y=18}doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text(t,margin,y);y+=7;doc.setFont('helvetica','normal');doc.setFontSize(10);};heading('IDENTIFICAÇÃO');y=addWrapped(doc,`Nome: ${state.student.name}\nTurma: ${state.student.class}\nNúmero: ${state.student.number||'—'}\nData: ${state.student.date||'—'}`,margin,y,max,5.5);y+=4;heading('RESULTADOS');y=addWrapped(doc,`Quiz Aula 1: ${scoreText('lesson1')}\nQuiz Aula 2: ${scoreText('lesson2')}\nQuiz Aula 3: ${scoreText('lesson3')}\nQuiz Aula 4: ${scoreText('lesson4')}\nQuiz Geral: ${scoreText('general')}`,margin,y,max,5.5);y+=4;heading('ATIVIDADE PRÁTICA — PAPELARIA PONTO CERTO');const parts=[['Condição usada na validação do preço',state.activity.codePrice],['Por que a validação do preço utiliza repetição?',state.activity.answerPriceWhy],['Chamada integrada à opção 2 do menu',state.activity.codeConsultCall],['Como a nova função amplia o sistema?',state.activity.answerIntegration],['Condição utilizada na busca',state.activity.codeSearchWhile],['Por que o while verifica duas situações?',state.activity.answerSearchWhy]];parts.forEach(([t,v])=>{doc.setFont('helvetica','bold');y=addWrapped(doc,t,margin,y,max,5.5);doc.setFont('helvetica','normal');y=addWrapped(doc,v,margin+2,y,max-2,5.5);y+=3;});heading('CHECKLIST');const labels={price:'Aceita apenas preços maiores que zero',register:'Cadastro realizado corretamente',find:'Consulta localiza produtos existentes',notfound:'Informa quando o produto não é encontrado',menu:'Menu continua funcionando após cada operação'};Object.entries(labels).forEach(([k,v])=>{y=addWrapped(doc,`${state.checklist[k]?'[X]':'[ ]'} ${v}`,margin,y,max,5.5)});y+=4;heading('REFLEXÃO FINAL');y=addWrapped(doc,state.activity.finalReflection,margin,y,max,5.5);y+=7;doc.setFont('helvetica','bold');doc.text('Atividade concluída — Semana 21',margin,y);const filename=`Semana21_${cleanFilename(state.student.name)}_${cleanFilename(state.student.class)}.pdf`;doc.save(filename);});
+  const checks={
+    price:v=>['!preco_valido','notpreco_valido','preco_valido==false','preco_validoisfalse'].includes(normalize(v)),
+    call:v=>normalize(v)==='consultar_produto(produtos)',
+    search:v=>['i<len(produtos)andnotencontrado','(i<len(produtos))andnotencontrado','i<len(produtos)andencontrado==false'].includes(normalize(v))
+  };
+  const inputFor={price:'codePrice',call:'codeConsultCall',search:'codeSearchWhile'};
+  const feedbackFor={price:'feedbackPrice',call:'feedbackCall',search:'feedbackSearch'};
+  const hints={price:'Pense na variável booleana que começa como False. O laço continua enquanto ela ainda não indica um preço válido.',call:'A opção 2 precisa chamar a função consultar_produto e enviar a lista produtos como argumento.',search:'A condição precisa combinar duas ideias: ainda existe posição válida na lista E o produto ainda não foi encontrado.'};
+  $$('.check-code').forEach(b=>b.addEventListener('click',()=>{ const k=b.dataset.check; const ok=checks[k]($('#'+inputFor[k]).value); state.codeChecks[k]=ok; const f=$('#'+feedbackFor[k]); f.textContent=ok?'✓ Estrutura correta.':'✕ Ainda não. Reveja a condição e tente novamente.'; f.className='inline-feedback '+(ok?'good':'bad'); saveState(); }));
+  $$('.hint-btn').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.hint; const f=$('#'+feedbackFor[k]); f.textContent='💡 '+hints[k]; f.className='inline-feedback hint';}));
+  $$('.clear-code').forEach(b=>b.addEventListener('click',()=>{ const id=b.dataset.clear; $('#'+id).value=''; state.activity[id]=''; const k=Object.keys(inputFor).find(x=>inputFor[x]===id); if(k) state.codeChecks[k]=false; saveState(); }));
 
-$('#clearProgress').addEventListener('click',()=>{if(confirm('Deseja realmente apagar todas as respostas e o progresso salvo neste navegador?')){localStorage.removeItem(STORAGE_KEY);location.reload();}});
-updateProgress();
+  function activityComplete(){ return !!(state.codeChecks.price&&state.codeChecks.call&&state.codeChecks.search&&(state.activity.answerPriceWhy||'').trim()&&(state.activity.answerIntegration||'').trim()&&(state.activity.answerSearchWhy||'').trim()&&(state.activity.finalReflection||'').trim()); }
+  function getPending(){
+    const p=[];
+    if(!(state.student.name||'').trim()) p.push('Nome do aluno');
+    if(!(state.student.class||'').trim()) p.push('Turma');
+    ['lesson1','lesson2','lesson3','lesson4'].forEach((k,i)=>{if(!state.quizzes[k]?.completed)p.push(`Quiz da Aula ${i+1}`);});
+    if(!state.codeChecks.price)p.push('Condição de validação do preço');
+    if(!(state.activity.answerPriceWhy||'').trim())p.push('Resposta sobre repetição na validação');
+    if(!state.codeChecks.call)p.push('Integração da função consultar_produto');
+    if(!(state.activity.answerIntegration||'').trim())p.push('Resposta sobre integração da consulta');
+    if(!state.codeChecks.search)p.push('Condição da busca de produtos');
+    if(!(state.activity.answerSearchWhy||'').trim())p.push('Resposta sobre as duas condições do while');
+    if(!(state.activity.finalReflection||'').trim())p.push('Reflexão final');
+    if(!state.quizzes.general?.completed)p.push('Quiz final');
+    return p;
+  }
+  function updateProgress(){ const names=['Aula 1','Aula 2','Aula 3','Aula 4','Atividade','Quiz final','Entrega']; const stages=[state.quizzes.lesson1?.completed,state.quizzes.lesson2?.completed,state.quizzes.lesson3?.completed,state.quizzes.lesson4?.completed,activityComplete(),state.quizzes.general?.completed,getPending().length===0]; const done=stages.filter(Boolean).length; const pct=Math.round(done/names.length*100); $('#progressBar').style.width=pct+'%'; $('#progressLabel').textContent=`Progresso: ${pct}%`; $('#progressCount').textContent=`${done} de ${names.length} etapas`; $('#progressChips').innerHTML=names.map((n,i)=>`<span class="${stages[i]?'done':''}">${stages[i]?'✓ ':''}${n}</span>`).join(''); }
+
+  function scoreText(k){ const q=state.quizzes[k]; return q?.completed?`${q.score}/${quizzes[k].length} (${q.pct}%)`:'Não concluído'; }
+  function reportHTML(){
+    return `<h1>Semana 21 — Lógica de Programação</h1><p><strong>Programando com menu no terminal</strong></p><h2>Identificação</h2><p><strong>Nome:</strong> ${escapeHTML(state.student.name||'—')}<br><strong>Turma:</strong> ${escapeHTML(state.student.class||'—')}<br><strong>Número:</strong> ${escapeHTML(state.student.number||'—')}<br><strong>Data:</strong> ${escapeHTML(state.student.date||'—')}</p><h2>Resultados</h2><p>Aula 1: ${scoreText('lesson1')}<br>Aula 2: ${scoreText('lesson2')}<br>Aula 3: ${scoreText('lesson3')}<br>Aula 4: ${scoreText('lesson4')}<br>Quiz final: ${scoreText('general')}</p><h2>Atividade prática — Papelaria Ponto Certo</h2><h3>Validação do preço</h3><pre>${escapeHTML(state.activity.codePrice||'')}</pre><p>${escapeHTML(state.activity.answerPriceWhy||'')}</p><h3>Integração da consulta</h3><pre>${escapeHTML(state.activity.codeConsultCall||'')}</pre><p>${escapeHTML(state.activity.answerIntegration||'')}</p><h3>Condição da busca</h3><pre>${escapeHTML(state.activity.codeSearchWhile||'')}</pre><p>${escapeHTML(state.activity.answerSearchWhy||'')}</p><h2>Checklist</h2>${Object.entries({price:'Aceita apenas preços maiores que zero',register:'Cadastro realizado corretamente',find:'Consulta localiza produtos existentes',notfound:'Informa produto não encontrado',menu:'Menu continua funcionando'}).map(([k,v])=>`<p>${state.checklist[k]?'☑':'☐'} ${v}</p>`).join('')}<h2>Reflexão final</h2><p>${escapeHTML(state.activity.finalReflection||'').replace(/\n/g,'<br>')}</p>`;
+  }
+  function showMessage(type,text){ const box=$('#messageBox'); box.hidden=false; box.innerHTML=`<strong>${escapeHTML(text)}</strong>`; box.dataset.type=type; box.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+  function validateDelivery(){ const p=getPending(); if(p.length){ $('#messageBox').hidden=false; $('#messageBox').innerHTML=`<h3>⚠ Existem etapas pendentes</h3><p>Conclua antes de gerar o PDF:</p><ul>${p.map(x=>`<li>${escapeHTML(x)}</li>`).join('')}</ul>`; return false; } $('#messageBox').hidden=true; return true; }
+  $('#previewBtn').addEventListener('click',()=>{ const p=$('#previewPanel'); p.innerHTML=reportHTML(); p.hidden=!p.hidden; });
+  $('#printBtn').addEventListener('click',()=>{ if(!validateDelivery()) return; $('#printReport').innerHTML=reportHTML(); window.print(); });
+
+  function cleanFilename(v='Aluno'){ return v.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9]+/g,'').slice(0,40)||'Aluno'; }
+  function addWrapped(doc,text,x,y,width,lineHeight=5.5){ const lines=doc.splitTextToSize(String(text||'—'),width); for(const line of lines){ if(y>277){doc.addPage();y=18;} doc.text(line,x,y); y+=lineHeight; } return y; }
+  $('#pdfBtn').addEventListener('click',()=>{
+    if(!validateDelivery()) return;
+    if(!window.jspdf?.jsPDF){ showMessage('warning','A biblioteca de PDF não pôde ser carregada. Use “Imprimir / Salvar como PDF” como alternativa.'); return; }
+    try{
+      const {jsPDF}=window.jspdf; const doc=new jsPDF({unit:'mm',format:'a4'}); const m=16,w=178; let y=18;
+      doc.setFont('helvetica','bold'); doc.setFontSize(16); doc.text('Educação Profissional Paulista',m,y); y+=8; doc.setFontSize(12); doc.text('Técnico em Desenvolvimento de Sistemas',m,y); y+=6; doc.text('Semana 21 — Lógica de Programação',m,y); y+=6; doc.text('Programando com Menu no Terminal',m,y); y+=10;
+      const heading=t=>{if(y>265){doc.addPage();y=18;} doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text(t,m,y);y+=7;doc.setFont('helvetica','normal');doc.setFontSize(10);};
+      heading('IDENTIFICAÇÃO'); y=addWrapped(doc,`Nome: ${state.student.name}\nTurma: ${state.student.class}\nNúmero: ${state.student.number||'—'}\nData: ${state.student.date||'—'}`,m,y,w); y+=4;
+      heading('RESULTADOS'); y=addWrapped(doc,`Aula 1: ${scoreText('lesson1')}\nAula 2: ${scoreText('lesson2')}\nAula 3: ${scoreText('lesson3')}\nAula 4: ${scoreText('lesson4')}\nQuiz final: ${scoreText('general')}`,m,y,w); y+=4;
+      heading('ATIVIDADE PRÁTICA — PAPELARIA PONTO CERTO');
+      const parts=[['Condição da validação de preço',state.activity.codePrice],['Por que usar repetição?',state.activity.answerPriceWhy],['Chamada da consulta',state.activity.codeConsultCall],['Como a função amplia o sistema?',state.activity.answerIntegration],['Condição da busca',state.activity.codeSearchWhile],['Por que verificar duas situações?',state.activity.answerSearchWhy]];
+      for(const [t,v] of parts){ doc.setFont('helvetica','bold'); y=addWrapped(doc,t,m,y,w); doc.setFont('helvetica','normal'); y=addWrapped(doc,v,m+2,y,w-2); y+=3; }
+      heading('CHECKLIST'); const labels={price:'Aceita apenas preços maiores que zero',register:'Cadastro realizado corretamente',find:'Consulta localiza produtos existentes',notfound:'Informa quando o produto não é encontrado',menu:'Menu continua funcionando após cada operação'}; for(const [k,v] of Object.entries(labels)){ y=addWrapped(doc,`${state.checklist[k]?'[X]':'[ ]'} ${v}`,m,y,w); }
+      y+=4; heading('REFLEXÃO FINAL'); y=addWrapped(doc,state.activity.finalReflection,m,y,w); y+=6; doc.setFont('helvetica','bold'); y=addWrapped(doc,'Atividade concluída — Semana 21',m,y,w);
+      doc.save(`Logica_S21_${cleanFilename(state.student.name)}_${cleanFilename(state.student.class)}.pdf`); showMessage('success','✓ PDF gerado com sucesso.');
+    }catch(err){ console.error(err); showMessage('warning','Não foi possível gerar o PDF automaticamente. Use “Imprimir / Salvar como PDF”.'); }
+  });
+
+  $('#clearProgress').addEventListener('click',()=>{ if(confirm('Deseja apagar todas as respostas e o progresso salvo?')){ localStorage.removeItem(STORAGE_KEY); location.reload(); } });
+  updateProgress();
+});
